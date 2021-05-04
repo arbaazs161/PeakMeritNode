@@ -1,0 +1,15 @@
+{
+  "name": "peakmerit",
+  "version": "1.0.0",
+  "description": "Peak Merit is an E-Learning Platform helping students across various fields, to excel the academics. More over that, make themselves the best match for the Industry.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Arbaaz Shaikh",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.12.7"
+  }
+}
