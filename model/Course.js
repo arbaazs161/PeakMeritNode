@@ -1,4 +1,4 @@
-const { Mongoose } = require("mongoose")
+const mongoose = require("mongoose")
 
 const courseSchema = {
     name: {
@@ -14,6 +14,11 @@ const courseSchema = {
     publishDate: {
         type: Date,
         default: Date.now
+    },
+    author: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Author',
+        required: true
     }
 }
 

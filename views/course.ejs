@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <title><%= title %></title>
+</head>
+<body>
+    
+<div class="container">
+    <br>
+    <h2><%= headData %></h2>
+    </br>
+    <div class="row">
+        <div class="col-md-6">
+            <form method="POST">
+                <label class="text-danger"> <%= message %><%= error %> </label>
+                <div class="form-group">
+                    <label for="course">Name:</label>
+                    <input type="text" placeholder="E.g. Getting Started with Node" name="name" id="course" class="form-control"><br>
+                </div>
+                <div class="form-group">
+                    <label for="tags">Tags:</label>
+                    <input type="text" placeholder="E.g. Node JavaScript Rest" name="tags" id="tags" class="form-control"><br>
+                </div>
+                <input type="submit" class="form-control btn-success" value="Upload" />
+            </form>
+        </div>
+        <div class="col-md-6">
+            <img src="website.png" width="250">
+        </div>
+    </div>
+
+</div>
+<hr>
+<div class="container">
+    <h3>List of Courses</h3>
+    <div class="row">
+        <% 
+    var n=0;
+    for(var i=0; i < courses.length; i++) { %>
+    <div class="card" style="width:300px; margin: 1%">
+        <img class="card-img-top" src="course.jpg" alt="Card image" style="width:100%">
+        <div class="card-body">
+          <h4 class="card-title"><%= courses[i].name %></h4>
+          <p class="card-text"><%= courses[i].tags %></p>
+          <a href="#" class="btn btn-primary" alt="Open"><i class="fas fa-folder" alt="Open"></i></a>
+          <a href="#" class="btn btn-danger float-right"><i class="fas fa-trash"></i></a>
+        </div>
+    </div>
+    <% 
+    n = n + 1;
+    if(n == 4)
+    {
+        n=0;
+    }
+    %><br> <%
+    } %>
+    </div>
+    
+</div>
+
+</body>
+</html>

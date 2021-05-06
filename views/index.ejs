@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+</head>
+<body>
+    <h2><%= headData %></h2>
+</br>
+<form action="" method="POST" enctype="multipart/form-data">
+    <input type="text" placeholder="Enter Name"><br>
+    <input type="file" name="filetoupload" /><br>
+    <input type="submit" value="Upload" />
+</form>
+<% for(var i=0; i < imgName.length; i++) { %>
+    <img src="<%= imgName[i] %>" width="200">
+    <br>
+ <% } %>
+</body>
+</html>
