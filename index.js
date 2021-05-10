@@ -3,13 +3,23 @@ var formidable = require('formidable');
 var fs = require('fs');
 const path = require('path');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+var session = require('express-session');
+
 
 const course = require('./routes/course');
 const test = require('./routes/test');
+const content = require('./routes/content');
+
+mongoose.connect('mongodb://localhost/peakmerit')
+    .then(() => console.log('Connected to MongoDB..'))
+    .catch(err => console.err('Could not connect to MongoDB...', err.message));
 
 const app = express();
+
 app.set('views', './views');
 app.set('view engine', 'ejs');
+app.use(session(({secret: 'shhh'})));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -17,6 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/course', course);
 app.use('/test', test);
+app.use('/content', content);
 
 app.get('/', (req, res, next) => {
     /*res.writeHead(200, {'Content-Type': 'text/html'});

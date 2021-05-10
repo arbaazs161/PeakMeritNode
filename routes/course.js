@@ -1,16 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const mongoose = require('mongoose');
+
 const Course = require('../model/Course');
 var bodyParser = require('body-parser');
 var fs = require('fs');
 const path = require('path');
+const Author = require('../model/Author');
 
 router.use(bodyParser.urlencoded({extended: false}));
-
-mongoose.connect('mongodb://localhost/peakmerit')
-    .then(() => console.log('Connected to MongoDB..'))
-    .catch(err => console.err('Could not connect to MongoDB...', err.message));
 
 router.get('/:id?/:tag?/:name?', (req, res) => {
     var id = req.query.id;
@@ -35,26 +32,20 @@ router.post('/', (req, res) =>{
     console.log(req.body);
     var name = req.body.name;
     var tagString = req.body.tags;
-    var author = '6093c81ef63cbaec6b6e94c0';
+    var author = '60954c6e0b3ccd27744de78b';
 
-    
-    
     console.log(name);
     console.log(tagString);
     var tags = tagString.split(" ");
     console.log(tags);
 
     const result = addCourse(name, tags, author);
-    const courses = getAllCourses();
     result.then(data => {
         createDirectory(name);
-        courses.then(courseData => {
-            
-            res.render('course', {title: 'Courses', headData: 'Add Course', message: data.message, error: '', courses: courseData});
-        });
+        res.redirect('back');
     })
     .catch(err => {
-        res.render('course', {title: 'Courses', headData: 'Add Course', message: '', error: err.message, courses: courses});
+       
     });
     
 });
@@ -70,6 +61,17 @@ async function addCourse(name, tags, author){
     console.log(result.message);
     return result;
 }
+
+async function addAuthor(){
+    const author = new Author({
+        name: 'Arbaaz Shaikh',
+        email: 'arbaaz@email.com'
+    });
+
+    const result = await author.save();
+    console.log(result);
+}
+
 
 async function getAllCourses(){
     const courses = await Course.find().select();
