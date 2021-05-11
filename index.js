@@ -10,6 +10,7 @@ var session = require('express-session');
 const course = require('./routes/course');
 const test = require('./routes/test');
 const content = require('./routes/content');
+const user = require('./routes/user');
 
 mongoose.connect('mongodb://localhost/peakmerit')
     .then(() => console.log('Connected to MongoDB..'))
@@ -28,6 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/course', course);
 app.use('/test', test);
 app.use('/content', content);
+app.use('/user', user);
 
 app.get('/', (req, res, next) => {
     /*res.writeHead(200, {'Content-Type': 'text/html'});

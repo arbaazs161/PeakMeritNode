@@ -9,7 +9,7 @@ const Author = require('../model/Author');
 
 router.use(bodyParser.urlencoded({extended: false}));
 
-router.get('/:id?/:tag?/:name?', (req, res) => {
+router.get('/admin', (req, res) => {
     var id = req.query.id;
     var tag = req.query.tag;
     var name = req.query.name;
@@ -50,6 +50,39 @@ router.post('/', (req, res) =>{
     
 });
 
+router.get('/byName/:name?', (req, res) => {
+    var name = req.query.name;
+    getCourseByTag(name);
+    getCourseByName(name);
+    res.send('Hello Named Courses');
+});
+
+
+router.get('/byUser/:user?', (req, res) => {
+    var id = req.query.user;
+    getCourseforUser(id);
+    res.send('Hello User');
+});
+
+router.get('/getAll', (req, res) => {
+    const course = getAllCourses();
+    //console.log(course);
+    var courses = [];
+    course.then( data => {
+        console.log(data);
+        res.send(data);
+    });
+    
+});
+
+router.post('/enroll', (req, res) => {
+    var user = req.body.user;
+    var course = req.body.course;
+
+    enroll(user, course);
+});
+
+
 async function addCourse(name, tags, author){
     const course = new Course({
         name: name,
@@ -74,7 +107,7 @@ async function addAuthor(){
 
 
 async function getAllCourses(){
-    const courses = await Course.find().select();
+    const courses = await Course.find().populate('author', 'name -_id').select('name tags author');
     return courses;
 }
 
