@@ -11,7 +11,7 @@ const Content = require('../model/Content');
 router.use(bodyParser.urlencoded({extended: false}));
 var sess;
 
-router.get('/:id?', (req, res) => {
+router.get('/admin/:id?', (req, res) => {
     sess = req.session;
     var id = req.query.id;
     //console.log(id);
@@ -25,7 +25,7 @@ router.get('/:id?', (req, res) => {
 
 });
 
-router.post('/', (req, res) =>{
+router.post('/admin', (req, res) =>{
 
     var courseName;
     const course = getCourseNameById(sess.courseId);
@@ -40,6 +40,8 @@ router.post('/', (req, res) =>{
         var newpath = './public/Arbaaz/' + courseName + '/' + files.contentFile.name;
         console.log('New Path : '+ newpath);
         var priority = fields.file_priority;
+
+        var name = files.contentFile.name.split('.').slice(0, -1).join('.');
         //console.log(priority);
         fs.readFile(oldpath, function (err, data) {
             if (err) throw err;
@@ -49,7 +51,7 @@ router.post('/', (req, res) =>{
             fs.writeFile(newpath, data, function (err) {
                 if (err) throw err;
 
-                const result = addContent(newpath, files.contentFile.name, sess.courseId, priority);
+                const result = addContent(newpath, name, sess.courseId, priority);
 
                 result.then(data => {
                     res.redirect('back');
@@ -66,6 +68,17 @@ router.post('/', (req, res) =>{
         });
     });
 
+});
+
+router.get('/getByCourse/:id?', (req, res) => {
+    var id = req.query.id;
+    const result = getContentByCourse(id);
+
+    result.then(data => {
+        res.send(data);
+    }).catch(err => {
+        res.send(err.message);
+    });
 });
 
 async function getContentsById(id){
@@ -91,6 +104,13 @@ async function getCourseNameById(id){
     const courses = await Course.findById(id);
     //console.log(courses);
     return courses;
+}
+
+async function getContentByCourse(id){
+    const result = await Content.find({ course: id }).sort('priority').select('contentName contentPath');
+
+    //console.log(result);
+    return result;
 }
 
 module.exports = router;

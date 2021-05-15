@@ -6,6 +6,7 @@ var bodyParser = require('body-parser');
 var fs = require('fs');
 const path = require('path');
 const Author = require('../model/Author');
+const User = require('../model/User');
 
 router.use(bodyParser.urlencoded({extended: false}));
 
@@ -60,8 +61,11 @@ router.get('/byName/:name?', (req, res) => {
 
 router.get('/byUser/:user?', (req, res) => {
     var id = req.query.user;
-    getCourseforUser(id);
-    res.send('Hello User');
+    
+    var result = getCourseforUser(id);
+    result.then(data => {
+        res.send(data);
+    });
 });
 
 router.get('/getAll', (req, res) => {
@@ -79,7 +83,11 @@ router.post('/enroll', (req, res) => {
     var user = req.body.user;
     var course = req.body.course;
 
-    enroll(user, course);
+    var result = enroll(user, course);
+
+    result.then(data => {
+        res.send("Done");
+    });
 });
 
 
@@ -111,6 +119,27 @@ async function getAllCourses(){
     return courses;
 }
 
+async function getCourseforUser(userId){
+    var courses = [];
+
+    var courseIds = await User.find({ _id: userId}).populate('courses', 'name tags author').select('courses -_id');
+
+    for(i in courseIds){
+        courses.push(courseIds[i].courses);
+    }
+    console.log('Array : ' + courses);
+    return courses;
+    //return courses;
+}
+
+async function getCourse(id){
+    var course = await Course.findById(id).populate('author', 'name -_id').select('name tags author');
+    //console.log(course);
+
+    return course;
+}
+
+
 function createDirectory(name){
     fs.mkdir(path.join(__dirname, '../public/Arbaaz/'+name), (err) => {
         if (err) {
@@ -119,5 +148,17 @@ function createDirectory(name){
         console.log('Directory created successfully!');
     });
 }
+
+async function enroll(userId, courseId){
+    var tags = await Course.findOne({ _id: courseId}).select('tags -_id');
+
+    console.log('Tags : ' + tags.tags);
+
+    var result = await User.findByIdAndUpdate(userId, {$addToSet : {courses: courseId, tags : tags.tags}});
+
+    return result;
+}
+
+//enroll('609ada04d2dd191adcce3514', '6093e2aadf11983374538dd8');
 
 module.exports = router;

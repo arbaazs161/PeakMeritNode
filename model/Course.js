@@ -19,6 +19,10 @@ const courseSchema = {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Author',
         required: true
+    },
+    description: {
+        type: String,
+        required: true
     }
 }
 

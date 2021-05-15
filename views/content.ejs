@@ -20,7 +20,7 @@
             </form>
         </div>
         <div class="col-md-6">
-            <img src="content.png" width="250">
+            <img src="/content.png" width="250">
         </div>
     </div>
 
@@ -35,7 +35,7 @@
     for(var i=0; i < contents.length; i++) { %>
     <div class="card" style="width:300px; margin: 1%">
         
-        <img class="card-img-top" src="content.jpg" alt="Card image" style="width:100%">
+        <img class="card-img-top" src="/content.jpg" alt="Card image" style="width:100%">
         <div class="card-body">
           
           <div class="text-center">
@@ -43,7 +43,7 @@
 
             <br>
 
-            <a href='/course/delete/<%= contents[i]._id %>' class="btn btn-danger"><i class="fas fa-trash"></i></a>
+            <a href='/content/delete/<%= contents[i]._id %>' class="btn btn-danger"><i class="fas fa-trash"></i></a>
           </div>
           
         </div>

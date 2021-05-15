@@ -15,11 +15,15 @@
                     <label for="tags">Tags:</label>
                     <input type="text" placeholder="E.g. Node JavaScript Rest" name="tags" id="tags" class="form-control"><br>
                 </div>
+                <div class="form-group">
+                    <label for="desc">Description:</label>
+                    <textarea placeholder="Provide Details About the Course" name="desc" id="desc" class="form-control"></textarea><br>
+                </div>
                 <input type="submit" class="form-control btn-success" value="Upload" />
             </form>
         </div>
         <div class="col-md-6">
-            <img src="website.png" width="250">
+            <img src="/website.png" width="250">
         </div>
     </div>
 
@@ -32,11 +36,11 @@
     var n=0;
     for(var i=0; i < courses.length; i++) { %>
     <div class="card" style="width:300px; margin: 1%">
-        <img class="card-img-top" src="course.jpg" alt="Card image" style="width:100%">
+        <img class="card-img-top" src="/course.jpg" alt="Card image" style="width:100%">
         <div class="card-body">
           <h4 class="card-title"><%= courses[i].name %></h4>
           <p class="card-text"><%= courses[i].tags %></p>
-          <a href='/content?id=<%= courses[i]._id %>' class="btn btn-primary" alt="Open"><i class="fas fa-folder" alt="Open"></i></a>
+          <a href='/content/admin?id=<%= courses[i]._id %>' class="btn btn-primary" alt="Open"><i class="fas fa-folder" alt="Open"></i></a>
           <a href='/course/delete/<%= courses[i]._id %>' class="btn btn-danger float-right"><i class="fas fa-trash"></i></a>
         </div>
     </div>

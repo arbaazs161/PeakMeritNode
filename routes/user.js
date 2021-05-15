@@ -43,6 +43,16 @@ router.post('/register', (req, res) => {
 
 });
 
+router.get('/courselist/:user?', (req, res) => {
+    var id = req.query.user;
+
+    const result = getCourseList(id);
+
+    result.then(data => {
+        res.send(data);
+    });
+});
+
 async function createUser(name, email, password){
 
     const checkUser = await User.findOne({ email: email});
@@ -73,6 +83,13 @@ async function loginUser(email, password){
     else{
         return checkUser._id;
     }
+}
+
+async function getCourseList(id){
+    var result = await User.findById(id).select('courses -_id');
+    console.log('Result' + result.courses);
+
+    return result.courses;
 }
 
 module.exports = router;
