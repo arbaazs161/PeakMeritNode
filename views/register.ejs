@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    
+    <title>Peak Merit | Register</title>
+    <link rel="stylesheet" href="/assets/login.css">
+</head>
+<body>
+    
+    <!-- Navbar-->
+<header class="header">
+    <nav class="navbar navbar-expand-lg navbar-light py-3">
+        <div class="col-md-5 pr-lg-5 mb-5 mb-md-0 text-center justify-content-center">
+                    
+            <h2>Peak Merit</h2>
+            
+        </div>
+
+        <div class="col-md-7 pr-lg-5 mb-5 mb-md-0 text-center justify-content-end">
+            
+            <h4 class="text-muted">Register</h4>
+            
+        </div>
+    </nav>
+</header>
+
+
+<div class="container">
+    <div class="row py-3 mt-4 align-items-center">
+        <!-- For Demo Purpose -->
+        <div class="col-md-5 pr-lg-5 mb-0 mb-md-0">
+            <img src="/assets/login_ill.svg" alt="Illustration Here" class="img-fluid mb-0 d-none d-md-block">
+            
+            
+        </div>
+
+        <!-- Registeration Form -->
+        <div class="col-md-7 col-lg-6 ml-auto">
+            <form method="POST">
+                <div class="row">
+
+                    <!-- First Name -->
+                    <div class="input-group col-lg-6 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa fa-user text-muted"></i>
+                            </span>
+                        </div>
+                        <input id="firstname" type="text" name="firstname" placeholder="First Name" class="form-control bg-white border-left-0 border-md">
+                    </div>
+
+                    <!-- Last Name -->
+                    <div class="input-group col-lg-6 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa fa-user text-muted"></i>
+                            </span>
+                        </div>
+                        <input id="lastname" type="text" name="lastname" placeholder="Last Name" class="form-control bg-white border-left-0 border-md">
+                    </div>
+
+                    <!-- Email Address -->
+                    <div class="input-group col-lg-12 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa fa-envelope text-muted"></i>
+                            </span>
+                        </div>
+                        <input id="email" type="email" name="email" placeholder="Email Address" class="form-control bg-white border-left-0 border-md">
+                    </div>
+
+                    
+
+
+                    <!-- Job -->
+                    <div class="input-group col-lg-12 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa fa-black-tie text-muted"></i>
+                            </span>
+                        </div>
+                        <select id="job" name="jobtitle" class="form-control custom-select bg-white border-left-0 border-md">
+                            <option value="0">Choose your Field</option>
+                            <option value="Designer">Designer</option>
+                            <option value="Developer">Developer</option>
+                            <option value="Management">Manager</option>
+                            <option value="Commerce">Accountant</option>
+                        </select>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="input-group col-lg-12 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa fa-lock text-muted"></i>
+                            </span>
+                        </div>
+                        <input id="password" type="password" name="password" placeholder="Set a Password" class="form-control bg-white border-left-0 border-md">
+                    </div>
+
+                    
+
+                    <!-- Submit Button -->
+                    <div class="form-group col-lg-12 mx-auto mb-3">
+                        
+                        <input type="submit" class=" font-weight-bold btn btn-block py-2 form-control" style="background-color: #7fe245;" value="Create your account">
+                    </div>
+
+                    
+
+                    <!-- Already Registered -->
+                    <div class="text-center w-100">
+                        <p class="text-muted font-weight-bold">Already Registered? <a href="/home/login" class="ml-2" style="color: #7fe245">Login</a></p>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

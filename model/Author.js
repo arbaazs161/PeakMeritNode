@@ -10,6 +10,18 @@ const adminSchema = {
     email: {
         type: String,
         required: true
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    profileimage: {
+        data: Buffer,
+        contentType: String,
+    },
+    jobtitle: {
+        type: String,
+        required: true
     }
 }
 

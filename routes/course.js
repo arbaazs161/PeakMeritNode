@@ -15,24 +15,40 @@ router.get('/admin', (req, res) => {
     var tag = req.query.tag;
     var name = req.query.name;
 
-    const courses = getAllCourses();
+    sess = req.session;
 
-    if(!id && !tag && !name){
-        courses.then(data => {
-            res.render('course', {title: 'Courses', headData: 'Add Course', message: '', error: '', courses: data});
-        });
-        
+    var authorId = sess.authorId;
+    //console.log(authorId);
+
+    if(authorId == null){
+        res.render('login', {msg: ''});
     }
-    else{
-        res.write('Not Found!');
+    else{    
+        const courses = getAllCourses(authorId);
+
+        if(!id && !tag && !name){
+            courses.then(data => {
+                res.render('course', {title: 'Courses', headData: 'Add Course', message: '', error: '', courses: data});
+            });
+            
+        }
+        else{
+            res.write('Not Found!');
+        }
     }
 });
 
-router.post('/', (req, res) =>{
+router.post('/admin', (req, res) =>{
+
+    sess = req.session;
+
+    var authorId = sess.authorId;
     
     console.log(req.body);
     var name = req.body.name;
     var tagString = req.body.tags;
+    var description = req.body.desc;
+    var charge = req.body.charge;
     var author = '60954c6e0b3ccd27744de78b';
 
     console.log(name);
@@ -40,7 +56,7 @@ router.post('/', (req, res) =>{
     var tags = tagString.split(" ");
     console.log(tags);
 
-    const result = addCourse(name, tags, author);
+    const result = addCourse(name, tags, authorId, description, charge);
     result.then(data => {
         createDirectory(name);
         res.redirect('back');
@@ -53,23 +69,45 @@ router.post('/', (req, res) =>{
 
 router.get('/byName/:name?', (req, res) => {
     var name = req.query.name;
-    getCourseByTag(name);
-    getCourseByName(name);
-    res.send('Hello Named Courses');
+    //getCourseByTag(name);
+    var result = getCourseByName(name);
+    result.then(data => {
+        res.send(data);
+    });
+    //res.send('Hello Named Courses');
 });
 
+router.get('/byId/:id?', (req, res) => {
+    var id = req.query.id;
+
+    var result = getCourse(id);
+
+    result.then(data => {
+        res.send(data);
+    });
+});
 
 router.get('/byUser/:user?', (req, res) => {
     var id = req.query.user;
     
     var result = getCourseforUser(id);
     result.then(data => {
+        console.log(data);
+        res.send(data);
+    });
+});
+
+router.get('/getCourseId/:user?', (req, res) => {
+    var id = req.query.user;
+    const Ids = getCourseIds(id);
+
+    Ids.then(data => {
         res.send(data);
     });
 });
 
 router.get('/getAll', (req, res) => {
-    const course = getAllCourses();
+    const course = getAllCoursesUser();
     //console.log(course);
     var courses = [];
     course.then( data => {
@@ -91,16 +129,24 @@ router.post('/enroll', (req, res) => {
 });
 
 
-async function addCourse(name, tags, author){
+async function addCourse(name, tags, author, description, charge){
     const course = new Course({
         name: name,
         tags: tags,
-        author: author
+        author: author,
+        description: description,
+        charge: charge
     });
 
     const result = await course.save();
-    console.log(result.message);
+    console.log(result);
     return result;
+}
+
+async function getCourseIds(user){
+    var courses = await User.find({_id: user}).select('courses -_id');
+    console.log(courses);
+    return courses;
 }
 
 async function addAuthor(){
@@ -114,28 +160,42 @@ async function addAuthor(){
 }
 
 
-async function getAllCourses(){
-    const courses = await Course.find().populate('author', 'name -_id').select('name tags author');
+async function getAllCourses(authorId){
+    const courses = await Course.find({author: authorId}).populate('author', 'name -_id').select('name tags author charge');
+    return courses;
+}
+
+async function getAllCoursesUser(){
+    const courses = await Course.find().populate('author', 'name -_id').select('name tags author charge');
     return courses;
 }
 
 async function getCourseforUser(userId){
     var courses = [];
 
-    var courseIds = await User.find({ _id: userId}).populate('courses', 'name tags author').select('courses -_id');
+    var courseIds = await User.find({ _id: userId}).select('courses -_id');
 
-    for(i in courseIds){
-        courses.push(courseIds[i].courses);
+    for(i in courseIds[0].courses){
+        var course = await Course.findById(courseIds[0].courses[i]).populate('author', 'name -_id').select('name tags author');
+        courses.push(course);
+        //console.log(course);
     }
-    console.log('Array : ' + courses);
+    //console.log('Array', courses);
     return courses;
-    //return courses;
 }
 
-async function getCourse(id){
-    var course = await Course.findById(id).populate('author', 'name -_id').select('name tags author');
-    //console.log(course);
+async function getCourseByName(name){
+    var courses = await Course.find({ name: new RegExp(name, 'i') }).populate('author', 'name -_id').select('name tags author');
+    console.log(courses);
+}
 
+//getCourseByName('python');
+
+//getCourseforUser('609ada04d2dd191adcce3514');
+
+async function getCourse(id){
+    var course = await Course.findById(id).populate('author', 'name -_id').select('name tags author description');
+    console.log(course);
     return course;
 }
 

@@ -10,11 +10,15 @@
                 
                 <div class="form-group">
                     <label for="file">File: </label>
-                    <input type="file" placeholder="E.g. Node JavaScript Rest" name="contentFile" id="file" class="form-control"><br>
+                    <input type="file" required placeholder="E.g. Node JavaScript Rest" name="contentFile" id="file" class="form-control"><br>
                 </div>
                 <div class="form-group">
                     <label for="order">Order: </label>
-                    <input type="number" placeholder="E.g. 1 if you want this file to be the first course content" name="file_priority" id="order" class="form-control"><br>
+                    <input type="number" required placeholder="E.g. 1 if you want this file to be the first course content" name="file_priority" id="order" class="form-control"><br>
+                </div>
+                <div class="form-group">
+                    <label for="desc">Description:</label>
+                    <textarea required placeholder="Provide Description of the video content" name="desc" id="desc" class="form-control"></textarea><br>
                 </div>
                 <input type="submit" class="form-control btn-success" value="Upload" />
             </form>
@@ -35,7 +39,7 @@
     for(var i=0; i < contents.length; i++) { %>
     <div class="card" style="width:300px; margin: 1%">
         
-        <img class="card-img-top" src="/content.jpg" alt="Card image" style="width:100%">
+        <img class="card-img-top" src="/livevideo.png" alt="Card image" style="width:100%">
         <div class="card-body">
           
           <div class="text-center">

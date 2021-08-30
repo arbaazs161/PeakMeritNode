@@ -16,6 +16,10 @@ const contentSchema = {
     priority: {
         type: Number,
         required: true
+    },
+    description: {
+        type: String,
+        required: true
     }
 };
 

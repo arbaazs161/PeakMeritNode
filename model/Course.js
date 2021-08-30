@@ -23,6 +23,13 @@ const courseSchema = {
     description: {
         type: String,
         required: true
+    },
+    charge:{
+        type: String,
+        required: true
+    },
+    rating: {
+        type: Number,
     }
 }
 

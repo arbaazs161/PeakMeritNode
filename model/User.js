@@ -25,6 +25,17 @@ const userSchema = {
         type: [ String ],
         required: true
     },
+    school: {
+        type: String,
+    },
+    field: {
+        type: [ String ],
+        required: true
+    },
+    profileimage: {
+        data: Buffer,
+        contentType: String,
+    }
 }
 
 const User = mongoose.model('User', userSchema);

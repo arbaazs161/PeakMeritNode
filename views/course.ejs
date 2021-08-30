@@ -9,16 +9,33 @@
                 <label class="text-danger"> <%= message %><%= error %> </label>
                 <div class="form-group">
                     <label for="course">Name:</label>
-                    <input type="text" placeholder="E.g. Getting Started with Node" name="name" id="course" class="form-control"><br>
+                    <input type="text" required placeholder="E.g. Getting Started with Node" name="name" id="course" class="form-control"><br>
                 </div>
                 <div class="form-group">
                     <label for="tags">Tags:</label>
-                    <input type="text" placeholder="E.g. Node JavaScript Rest" name="tags" id="tags" class="form-control"><br>
+                    <input type="text" required placeholder="E.g. Node JavaScript Rest" name="tags" id="tags" class="form-control"><br>
                 </div>
                 <div class="form-group">
                     <label for="desc">Description:</label>
-                    <textarea placeholder="Provide Details About the Course" name="desc" id="desc" class="form-control"></textarea><br>
+                    <textarea required placeholder="Provide Details About the Course" name="desc" id="desc" class="form-control"></textarea><br>
                 </div>
+                <div class="form-group">
+                    <label>Course Type:</label>
+                    <div class="radio">
+                        <label><input type="radio" name="optradio" id="freeRad" value="free" checked> Free</label>
+                    </div>
+                    <div class="radio">
+                        <label><input type="radio" name="optradio" id="paidRad" value="paid"> Paid</label>
+                    </div>
+                    
+                </div>
+
+                <div class="form-group">
+                    <label for="charge">Charge:</label>
+                    <input type="text" required placeholder="E.g. 200" disabled value="Free" name="charge" id="charge" class="form-control"><br>
+                </div>
+                
+
                 <input type="submit" class="form-control btn-success" value="Upload" />
             </form>
         </div>
@@ -38,7 +55,15 @@
     <div class="card" style="width:300px; margin: 1%">
         <img class="card-img-top" src="/course.jpg" alt="Card image" style="width:100%">
         <div class="card-body">
-          <h4 class="card-title"><%= courses[i].name %></h4>
+            <div class="row">
+                <div class="col-md-7">
+                    <h4 class="card-title"><%= courses[i].name %></h4>
+                </div>
+                <div class="col-md-5">
+                    <h6 class="text-right text-muted"><%= courses[i].charge %></h6>
+                </div>
+            </div>
+          
           <p class="card-text"><%= courses[i].tags %></p>
           <a href='/content/admin?id=<%= courses[i]._id %>' class="btn btn-primary" alt="Open"><i class="fas fa-folder" alt="Open"></i></a>
           <a href='/course/delete/<%= courses[i]._id %>' class="btn btn-danger float-right"><i class="fas fa-trash"></i></a>
@@ -55,6 +80,24 @@
     </div>
     
 </div>
+
+<script>
+
+    $(document).ready(function(){
+        $('input[type=radio][name=optradio]').change(function() {
+            if (this.value == 'free') {
+                $("#charge").attr("disabled", "disabled");
+                $("#charge").val("Free");
+            }
+            else if (this.value == 'paid') {
+                $("#charge").removeAttr("disabled");
+                $("#charge").val("");
+            }
+        });
+    });
+
+    
+</script>
 
 </body>
 </html>

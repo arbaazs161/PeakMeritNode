@@ -40,7 +40,7 @@ router.post('/admin', (req, res) =>{
         var newpath = './public/Arbaaz/' + courseName + '/' + files.contentFile.name;
         console.log('New Path : '+ newpath);
         var priority = fields.file_priority;
-
+        var description = fields.desc;
         var name = files.contentFile.name.split('.').slice(0, -1).join('.');
         //console.log(priority);
         fs.readFile(oldpath, function (err, data) {
@@ -51,7 +51,7 @@ router.post('/admin', (req, res) =>{
             fs.writeFile(newpath, data, function (err) {
                 if (err) throw err;
 
-                const result = addContent(newpath, name, sess.courseId, priority);
+                const result = addContent(newpath, name, sess.courseId, priority, description);
 
                 result.then(data => {
                     res.redirect('back');
@@ -68,6 +68,12 @@ router.post('/admin', (req, res) =>{
         });
     });
 
+});
+
+router.get('/getVideo/:url?', (req, res) => {
+    var url = req.query.url;
+    console.log(url);
+    res.sendFile(path.join(__dirname, '../', url));
 });
 
 router.get('/getByCourse/:id?', (req, res) => {
@@ -88,12 +94,13 @@ async function getContentsById(id){
     return result;
 }
 
-async function addContent(path, name, course, priority){
+async function addContent(path, name, course, priority, description){
     const content = new Content({
         contentName: name,
         contentPath: path,
         course: course,
-        priority: priority
+        priority: priority,
+        description: description
     });
 
     const result = await content.save();
@@ -107,7 +114,7 @@ async function getCourseNameById(id){
 }
 
 async function getContentByCourse(id){
-    const result = await Content.find({ course: id }).sort('priority').select('contentName contentPath');
+    const result = await Content.find({ course: id }).sort('priority').select('contentName contentPath description');
 
     //console.log(result);
     return result;

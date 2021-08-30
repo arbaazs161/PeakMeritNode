@@ -5,6 +5,7 @@ const Course = require('../model/Course');
 var bodyParser = require('body-parser');
 var fs = require('fs');
 const User = require('../model/User');
+const { route } = require('./course');
 
 router.use(bodyParser.urlencoded({extended: false}));
 var sess;
@@ -52,6 +53,27 @@ router.get('/courselist/:user?', (req, res) => {
         res.send(data);
     });
 });
+
+router.get('/getuser/:id?', (req, res) => {
+
+    var id = req.query.id;
+
+    var result = getUser(id);
+
+    result.then(data => {
+        res.send(data);
+    });
+
+});
+
+async function getUser(id){
+    const user = await User.findById(id).select('name email tags');
+
+    console.log(user);
+    return user;
+}
+
+//getUser('609ada04d2dd191adcce3514');
 
 async function createUser(name, email, password){
 
