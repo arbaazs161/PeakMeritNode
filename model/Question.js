@@ -1,8 +1,5 @@
 const questionSchema = {
-    serial: {
-        type: String,
-        required: true
-    },
+    
     section: {
         type: String,
         required: true
@@ -12,8 +9,20 @@ const questionSchema = {
         required: true
     },
     options: {
-        type: Map,
-        of: Number
+        type: [ String ],
+        required: true
+    },
+    correct:{
+        type: Number,
+        required: true
+    },
+    point:{
+        type: Number,
+        required: true
+    },
+    test:{
+        type: [ mongoose.Schema.Types.ObjectId ],
+        ref: 'Test'
     }
 }
 

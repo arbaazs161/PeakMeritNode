@@ -21,7 +21,7 @@ router.get('/admin', (req, res) => {
     //console.log(authorId);
 
     if(authorId == null){
-        res.render('login', {msg: ''});
+        res.redirect('../home/login');
     }
     else{    
         const courses = getAllCourses(authorId);
@@ -194,7 +194,7 @@ async function getCourseByName(name){
 //getCourseforUser('609ada04d2dd191adcce3514');
 
 async function getCourse(id){
-    var course = await Course.findById(id).populate('author', 'name -_id').select('name tags author description');
+    var course = await Course.findById(id).populate('author', 'name -_id').select('name tags author description charge');
     console.log(course);
     return course;
 }

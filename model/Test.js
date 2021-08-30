@@ -14,7 +14,11 @@ const testSchema = {
     course: {
         type: [ mongoose.Schema.Types.ObjectId ],
         ref: 'Course'
-    } 
+    },
+    author:{
+        type: [ mongoose.Schema.Types.ObjectId ],
+        ref: 'Author'
+    }
 }
 
 const Test = mongoose.model('Test', testSchema);
