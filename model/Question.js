@@ -1,9 +1,7 @@
+const mongoose = require('mongoose');
+
 const questionSchema = {
     
-    section: {
-        type: String,
-        required: true
-    },
     question: {
         type: String,
         required: true

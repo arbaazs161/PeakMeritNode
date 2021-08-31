@@ -87,6 +87,19 @@ router.get('/getByCourse/:id?', (req, res) => {
     });
 });
 
+router.get('/getForVideoView/:id?/:priority?', (req, res) => {
+    var id = req.query.id;
+    var priority = req.query.priority;
+
+    const result = getContentForVideo(id, priority);
+});
+
+async function getContentForVideo(id, priority){
+    const result = await Content.find({ course: id, priority: { $gt : priority} }).sort('priority').select('contentName contentPath description priority');
+    console.log(result);
+    return result;
+}
+
 async function getContentsById(id){
     const result = await Content.find({ course: id }).sort('priority');
 
@@ -114,7 +127,7 @@ async function getCourseNameById(id){
 }
 
 async function getContentByCourse(id){
-    const result = await Content.find({ course: id }).sort('priority').select('contentName contentPath description');
+    const result = await Content.find({ course: id }).sort('priority').select('contentName contentPath description priority');
 
     //console.log(result);
     return result;

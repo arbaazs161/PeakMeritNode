@@ -1,22 +1,24 @@
+const mongoose = require('mongoose');
+
 const testSchema = {
     name: {
         type: String,
         required: true,
     },
     startDate: {
-        type: Date,
+        type: String,
         required: true
     },
     endDate: {
-        type: Date,
+        type: String,
         required: true
     },
     course: {
-        type: [ mongoose.Schema.Types.ObjectId ],
+        type: mongoose.Schema.Types.ObjectId ,
         ref: 'Course'
     },
     author:{
-        type: [ mongoose.Schema.Types.ObjectId ],
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Author'
     }
 }

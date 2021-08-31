@@ -40,7 +40,7 @@
             </form>
         </div>
         <div class="col-md-6">
-            <img src="/website.png" width="250">
+            <img src="/TestImg.png" width="250">
         </div>
     </div>
 
@@ -53,7 +53,7 @@
     var n=0;
     for(var i=0; i < tests.length; i++) { %>
     <div class="card" style="width:300px; margin: 1%">
-        <img class="card-img-top" src="/course.jpg" alt="Card image" style="width:100%">
+        <img class="card-img-top" src="/exam.jpg" alt="Card image" style="width:100%">
         <div class="card-body">
             <div class="row">
                 <div class="col-md-7">
@@ -64,9 +64,9 @@
                 </div>
             </div>
           
-          
-          <a href='/content/admin?id=<%= courses[i]._id %>' class="btn btn-primary" alt="Open"><i class="fas fa-folder" alt="Open"></i></a>
-          <a href='/course/delete/<%= courses[i]._id %>' class="btn btn-danger float-right"><i class="fas fa-trash"></i></a>
+            <p class="card-text text-muted"><%= tests[i].course.name %></p>
+          <a href='/test/question?id=<%= tests[i]._id %>' class="btn btn-primary" alt="Open"><i class="fas fa-pen" alt="Open"></i></a>
+          <a href='/test/delete/<%= courses[i]._id %>' class="btn btn-danger float-right"><i class="fas fa-trash"></i></a>
         </div>
     </div>
     <% 

@@ -1,0 +1,107 @@
+<%- include('./header') %>
+    <div class="container">
+    <br>
+    <h2>Add Questions</h2>
+    </br>
+    <div class="row">
+        <div>
+            <form method="POST">
+
+                <table class="table table-striped table-dark">
+                    <thead>
+                    <tr>
+                        <th><label for="test">Question:</label></th>
+                        <th><label for="opt1">Option 1:</label></th>
+                        <th><label for="opt2">Option 2:</label></th>
+                        <th><label for="opt3">Option 3:</label></th>
+                        <th><label for="opt4">Option 4:</label></th>
+                        <th><label for="correct">Correct :</label></th>
+                        <th><label for="correct">Score :</label></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="form-group">
+                                
+                                <textarea required  name="question" id="test" class="form-control"></textarea>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                
+                                <input type="text" required name="opt1" id="opt1" class="form-control">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                
+                                <input type="text" required name="opt2" id="opt2" class="form-control">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                
+                                <input type="text" required name="opt3" id="opt3" class="form-control">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                
+                                <input type="text" required name="opt4" id="opt4" class="form-control">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                
+                                <select id="correct" name="correct" id="correct" class="form-control">
+                                    <option value="0">Option 1</option>
+                                    <option value="1">Option 2</option>
+                                    <option value="2">Option 3</option>
+                                    <option value="3">Option 4</option>
+                                </select>
+                            </div>
+                            
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                
+                                <input type="number" required name="point" id="point" class="form-control">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                <input type="submit" class="form-control btn-success" value="Add" />
+                            </div>
+                            
+                        </td>
+                    </tr>
+                    <%
+                        for(var i = 0; i < questions.length; i++){
+                            %>
+                                <tr>
+                                    <td><%= questions[i].question %></td>
+                                    <td><%= questions[i].options[0] %></td>
+                                    <td><%= questions[i].options[1] %></td>
+                                    <td><%= questions[i].options[2] %></td>
+                                    <td><%= questions[i].options[3] %></td>
+                                    <td><%= parseInt(questions[i].correct) + 1 %></td>
+                                    <td><%= questions[i].point %></td>
+                                </tr>
+                            <%
+                        }
+                    %>
+                </tbody>
+                </table>
+
+                
+            </form>
+        </div>
+        
+    </div>
+
+</div>
+
+</body>
+</html>
