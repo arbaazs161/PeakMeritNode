@@ -92,6 +92,10 @@ router.get('/getForVideoView/:id?/:priority?', (req, res) => {
     var priority = req.query.priority;
 
     const result = getContentForVideo(id, priority);
+
+    result.then(data => {
+        res.send(data);
+    });
 });
 
 async function getContentForVideo(id, priority){
